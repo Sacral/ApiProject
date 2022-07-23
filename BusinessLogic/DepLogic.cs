@@ -35,35 +35,7 @@ namespace ApiProject.BusinessLogic
                 name = name,
                 groupName = gname
             };
-            return resJson = await depManager.DepartmentSelect(newdata);
-
-            //if(!string.IsNullOrEmpty(name))
-            //{
-
-            //    if (!UtiFunctions.checkString(name))
-            //    {
-            //        return resJson = UtiFunctions.ResponseString(-1, "包含了非中英文的字元");
-            //    }
-            //    else
-            //    {
-            //        DepData newdata = new DepData
-            //        {
-            //            name = name,
-            //            groupName = gname
-            //        };
-            //        return resJson = await depManager.DepartmentSelect(newdata);
-            //    }
-
-            //}
-            //else
-            //{
-            //    DepData newdata = new DepData
-            //    {
-            //        name = name,
-            //        groupName = gname
-            //    };
-            //    return resJson = await depManager.DepartmentSelect(newdata);
-            //}
+            return resJson = await depManager.DepartmentSelect(newdata);        
 
         }
 

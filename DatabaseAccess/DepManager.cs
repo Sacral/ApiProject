@@ -53,7 +53,7 @@ namespace ApiProject.DatabaseAccess
             }
             else
             {
-                string paRessult = string.Join(" AND ", list1);
+                string paRessult = string.Join(" AND ", list1); 
                 sql += "WHERE "+paRessult;
 
                 var dataList = cn.Query<DepData>(sql, newdata ).ToList();
