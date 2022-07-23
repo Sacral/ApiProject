@@ -32,7 +32,7 @@ namespace ApiProject.Controllers
 
             if (!string.IsNullOrEmpty(value.name) && !UtiFunctions.checkString(value.name))
             {
-                msg = "包含了非中英文的字元";
+                msg = ResFormat<DepData>.errmsg1;
                 reCode = 0;
             }
 
@@ -48,9 +48,9 @@ namespace ApiProject.Controllers
             int resInsert = await depLogic.dep_insert_Logic(value);
             string msg = "";
 
-            if (resInsert < 0)
+            if (resInsert == -1)
             {
-                msg = "包含了非中英文的字元" ;
+                msg = ResFormat<DepData>.errmsg1;
             }
 
             return UtiFunctions.ResponseString<DepData>(resInsert , msg);
@@ -66,11 +66,11 @@ namespace ApiProject.Controllers
 
             if (resUpdate==-2)
             {
-                msg = "id 不得為0或小於0";
+                msg = ResFormat<DepData>.errmsg2;
 
             }else if (resUpdate == -1)
             {
-                msg = "包含了非中英文的字元";
+                msg = ResFormat<DepData>.errmsg1;
             }
 
             return UtiFunctions.ResponseString<DepData>(resUpdate, msg); 
@@ -85,7 +85,7 @@ namespace ApiProject.Controllers
 
             if (resDelete == -2)
             {
-                msg = "id 不得為0或小於0";
+                msg = ResFormat<DepData>.errmsg2;
 
             }
 

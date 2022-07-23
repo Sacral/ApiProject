@@ -10,7 +10,6 @@ namespace ApiProject.BusinessLogic
 {
     public class DepLogic
     {
-
         private DepManager depManager;
 
         public DepLogic(IConfiguration configuration)
