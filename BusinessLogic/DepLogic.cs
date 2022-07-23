@@ -25,33 +25,45 @@ namespace ApiProject.BusinessLogic
             string gname = value.groupName;
             ResFormat resJson;
 
-            if(!string.IsNullOrEmpty(name))
+            if(!string.IsNullOrEmpty(name) && !UtiFunctions.checkString(name))
             {
-
-                if (!UtiFunctions.checkString(name))
-                {
-                    return resJson = UtiFunctions.ResponseString(-1, "包含了非中英文的字元");
-                }
-                else
-                {
-                    DepData newdata = new DepData
-                    {
-                        name = name,
-                        groupName = gname
-                    };
-                    return resJson = await depManager.DepartmentSelect(newdata);
-                }
-
+                return resJson = UtiFunctions.ResponseString(-1, "包含了非中英文的字元");
             }
-            else
+
+            DepData newdata = new DepData
             {
-                DepData newdata = new DepData
-                {
-                    name = name,
-                    groupName = gname
-                };
-                return resJson = await depManager.DepartmentSelect(newdata);
-            }
+                name = name,
+                groupName = gname
+            };
+            return resJson = await depManager.DepartmentSelect(newdata);
+
+            //if(!string.IsNullOrEmpty(name))
+            //{
+
+            //    if (!UtiFunctions.checkString(name))
+            //    {
+            //        return resJson = UtiFunctions.ResponseString(-1, "包含了非中英文的字元");
+            //    }
+            //    else
+            //    {
+            //        DepData newdata = new DepData
+            //        {
+            //            name = name,
+            //            groupName = gname
+            //        };
+            //        return resJson = await depManager.DepartmentSelect(newdata);
+            //    }
+
+            //}
+            //else
+            //{
+            //    DepData newdata = new DepData
+            //    {
+            //        name = name,
+            //        groupName = gname
+            //    };
+            //    return resJson = await depManager.DepartmentSelect(newdata);
+            //}
 
         }
 
