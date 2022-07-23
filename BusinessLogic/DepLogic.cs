@@ -25,7 +25,7 @@ namespace ApiProject.BusinessLogic
             string gname = value.groupName;
             ResFormat resJson;
 
-            if (UtiFunctions.checkString(name))
+            if (UtiFunctions.checkString(name)||string.IsNullOrEmpty(name))
             {
                 DepData newdata = new DepData
                 {
@@ -36,7 +36,9 @@ namespace ApiProject.BusinessLogic
             }
             else
             {
+
                return resJson = UtiFunctions.ResponseString(-1, "包含了非中英文的字元");
+                
             }
 
         }

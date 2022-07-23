@@ -23,17 +23,22 @@ namespace ApiProject.Controllers
 
         // GET 
         [HttpGet]
-        //public async Task<ActionResult<IEnumerable<DepData>>> GetAsync()
-        //{
-        //    var select = await depLogic.dep_select_Logic();
-
-        //    //return Ok(select);
-        //    return "temp";
-        //}
-        public async Task<string> Get()
+        public async Task<ResFormat> Get([FromQuery] DepData value)
         {
-            return "test ok";
+            //DepData res = new DepData
+            //{
+            //    name = "",
+            //    groupName = ""
+            //};
+
+            ResFormat select = await depLogic.dep_select_Logic(value);
+
+            return select;
         }
+        //public async Task<string> Get()
+        //{
+        //    return "test ok";
+        //}
 
         // POST 
         [HttpPost]

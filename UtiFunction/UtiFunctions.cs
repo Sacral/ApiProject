@@ -7,7 +7,7 @@ namespace ApiProject.UtiFunction
 {
     public class UtiFunctions
     {
-        public static ResFormat ResponseString(int rowsAffected , string errMsg)
+        public static ResFormat ResponseString(int rowsAffected , string resMsg )
         {
             var res = new ResFormat();
 
@@ -17,7 +17,7 @@ namespace ApiProject.UtiFunction
                 {
                     status = 1,
                     msg = "success",
-                    resData = ""
+                    resData = resMsg
                 };
 
             }
@@ -28,8 +28,8 @@ namespace ApiProject.UtiFunction
                 res = new ResFormat
                 {
                     status = 0,
-                    msg = "error",
-                    resData = errMsg
+                    msg = "error: " + resMsg,
+                    resData = null
                 };
 
             }

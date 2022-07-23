@@ -4,6 +4,7 @@ using ApiProject.Connect;
 using ApiProject.Model;
 using Dapper;
 using ApiProject.UtiFunction;
+using System.Text.Json;
 
 
 
@@ -42,11 +43,13 @@ namespace ApiProject.DatabaseAccess
 
             if (list1.Count == 0)
             {
+
                 var dataList = cn.Query<DepData>(sql).ToList();
 
-                ResFormat resJson = UtiFunctions.ResponseString(recordset, "");
+                string resString = JsonSerializer.Serialize(dataList);
+                ResFormat resJson = UtiFunctions.ResponseString(0, resString);
 
-                return dataList;
+                return resJson;
             }
             else
             {
@@ -54,7 +57,10 @@ namespace ApiProject.DatabaseAccess
                 sql += "WHERE "+paRessult;
 
                 var dataList = cn.Query<DepData>(sql, newdata ).ToList();
-                return dataList;
+                string resString = JsonSerializer.Serialize(dataList);
+                ResFormat resJson = UtiFunctions.ResponseString(0, resString);
+
+                return resJson;
             }
 
         }
