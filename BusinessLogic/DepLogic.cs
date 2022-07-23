@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ApiProject.DatabaseAccess;
 using ApiProject.Model;
 using ApiProject.UtiFunction;
+using System.Text.Json;
 
 
 namespace ApiProject.BusinessLogic
@@ -19,33 +20,32 @@ namespace ApiProject.BusinessLogic
 
         // GET 
 
-        public async Task<ResFormat> dep_select_Logic(DepData value)
+        public async Task<List<DepData>> dep_select_Logic(DepData value)
         {
             string name = value.name;
             string gname = value.groupName;
-            ResFormat resJson;
 
-            if(!string.IsNullOrEmpty(name) && !UtiFunctions.checkString(name))
-            {
-                return resJson = UtiFunctions.ResponseString(-1, "包含了非中英文的字元");
-            }
+             //dataList = new List<DepData>();
 
             DepData newdata = new DepData
             {
                 name = name,
                 groupName = gname
             };
-            return resJson = await depManager.DepartmentSelect(newdata);        
 
+            List<DepData> dataList = await depManager.DepartmentSelect(newdata);
+
+            return dataList ;
+                               
         }
 
         // POST 
 
-        public async Task<ResFormat> dep_insert_Logic(DepData value)
+        public async Task<int> dep_insert_Logic(DepData value)
         {
             string name = value.name;
             string gname = value.groupName;
-            ResFormat resJson;
+
             //正規化
             if (UtiFunctions.checkString(name))
             {
@@ -55,27 +55,30 @@ namespace ApiProject.BusinessLogic
                     groupName = gname,
                     modifiedDate = DateTime.Now
                 };
-                return resJson = await depManager.DepartmentInsert(newdata);
+                int dmRes = await depManager.DepartmentInsert(newdata);
+
+                return dmRes; 
+
             }
             else
             {
-                return resJson = UtiFunctions.ResponseString(-1,"包含了非中英文的字元");
+                //return resJson = UtiFunctions.ResponseString(-1,"包含了非中英文的字元");
+                return -1;
             }
 
         }
 
         // PUT
 
-        public async Task<ResFormat> dep_update_Logic(DepData value)
+        public async Task<int> dep_update_Logic(DepData value)
         {
             string name = value.name;
             int depId = value.departmentID;
             string gname = value.groupName;
-            ResFormat resJson;
 
             if (depId <= 0)
             {
-                return resJson = UtiFunctions.ResponseString(-1, "id 不得為0或小於0");
+                return -2;
             }
 
             if (UtiFunctions.checkString(name))
@@ -88,25 +91,25 @@ namespace ApiProject.BusinessLogic
                     modifiedDate = DateTime.Now
                 };
 
-                return resJson = await depManager.DepartmentUpdate(newdata);
+                int resUp = await depManager.DepartmentUpdate(newdata);
+                return resUp; 
             }
             else
             {
-                return resJson = UtiFunctions.ResponseString(-1, "包含了非中英文的字元");
+                return -1;
             }
 
         }
 
         // DELETE 
 
-        public async Task<ResFormat> dep_delete_Logic(DepData value)
+        public async Task<int> dep_delete_Logic(DepData value)
         {
             int depId = value.departmentID;
-            ResFormat resJson;
 
             if (depId <= 0)
             {
-                return resJson = UtiFunctions.ResponseString(-1, "id 不得為0或小於0");
+                return -2; 
             }
             else
             {
@@ -115,7 +118,7 @@ namespace ApiProject.BusinessLogic
                     departmentID = depId
                 };
 
-                return resJson = await depManager.DepartmentDelete(newdata);
+                return await depManager.DepartmentDelete(newdata);
 
             }
 

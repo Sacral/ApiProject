@@ -7,29 +7,37 @@ namespace ApiProject.UtiFunction
 {
     public class UtiFunctions
     {
-        public static ResFormat ResponseString(int rowsAffected , string resMsg )
+        public static ResFormat<T> ResponseString<T>(int rowsAffected , string resMsg , List<T> depData = null )
         {
-            var res = new ResFormat();
+            var res = new ResFormat<T>();
 
-            if (rowsAffected>=0)
+            if (rowsAffected>=0&& depData==null)
             {
-                res = new ResFormat
+                res = new ResFormat<T>
                 {
                     status = 1,
                     msg = "success",
-                    resData = resMsg
+                    resMsg = resMsg
                 };
 
+            }else if (depData != null)
+            {
+                res = new ResFormat<T>
+                {
+                    status = 1,
+                    msg = "success",
+                    resData = depData
+                };
             }
             else
             {
                 //rowsAffected ==-1
 
-                res = new ResFormat
+                res = new ResFormat<T>
                 {
                     status = 0,
-                    msg = "error: " + resMsg,
-                    resData = null
+                    msg = "error",
+                    resMsg = resMsg
                 };
 
             }

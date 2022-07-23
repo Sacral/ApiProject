@@ -4,8 +4,6 @@ using ApiProject.Connect;
 using ApiProject.Model;
 using Dapper;
 using ApiProject.UtiFunction;
-using System.Text.Json;
-
 
 
 namespace ApiProject.DatabaseAccess
@@ -23,9 +21,10 @@ namespace ApiProject.DatabaseAccess
         }
 
 
-        public async Task<ResFormat> DepartmentSelect(DepData newdata)
+        public async Task<List<DepData>> DepartmentSelect(DepData newdata)
         {
             List<string> list1 = new List<string>();
+            List<DepData> dataList = new List<DepData>();
 
             var cn = conLink.CreateConnection();
             var sql = "SELECT * FROM [AdventureWorks2019].[HumanResources].[Department] ";
@@ -44,29 +43,25 @@ namespace ApiProject.DatabaseAccess
             if (list1.Count == 0)
             {
 
-                var dataList = cn.Query<DepData>(sql).ToList();
+                dataList = cn.Query<DepData>(sql).ToList();
 
-                string resString = JsonSerializer.Serialize(dataList);
-                ResFormat resJson = UtiFunctions.ResponseString(0, resString);
-
-                return resJson;
             }
             else
             {
                 string paRessult = string.Join(" AND ", list1); 
+
                 sql += "WHERE "+paRessult;
 
-                var dataList = cn.Query<DepData>(sql, newdata ).ToList();
-                string resString = JsonSerializer.Serialize(dataList);
-                ResFormat resJson = UtiFunctions.ResponseString(0, resString);
+                dataList = cn.Query<DepData>(sql, newdata ).ToList();
 
-                return resJson;
             }
+
+            return dataList;
 
         }
 
 
-        public async Task<ResFormat> DepartmentInsert(DepData newdata)
+        public async Task<int> DepartmentInsert(DepData newdata)
         {
             var cn = conLink.CreateConnection();
 
@@ -74,12 +69,12 @@ namespace ApiProject.DatabaseAccess
 
             int recordset =  cn.Execute(sql, newdata);
 
-            ResFormat resJson = UtiFunctions.ResponseString(recordset,"");
+            //ResFormat resJson = UtiFunctions.ResponseString(recordset,"");
 
-            return resJson;
+            return recordset;
         }
 
-        public async Task<ResFormat> DepartmentUpdate(DepData newdata)
+        public async Task<int> DepartmentUpdate(DepData newdata)
         {
             var cn = conLink.CreateConnection();
 
@@ -89,12 +84,12 @@ namespace ApiProject.DatabaseAccess
 
             //var reader = cn.ExecuteReader();
 
-            ResFormat resJson = UtiFunctions.ResponseString(recordset,"");
+            //ResFormat resJson = UtiFunctions.ResponseString(recordset,"");
 
-            return resJson;
+            return recordset;
         }
 
-        public async Task<ResFormat> DepartmentDelete(DepData newdata)
+        public async Task<int> DepartmentDelete(DepData newdata)
         {
             var cn = conLink.CreateConnection();
 
@@ -102,9 +97,9 @@ namespace ApiProject.DatabaseAccess
 
             int recordset  = cn.Execute(sql, newdata);
 
-            ResFormat resJson = UtiFunctions.ResponseString(recordset, "");
+            //ResFormat resJson = UtiFunctions.ResponseString(recordset, "");
 
-            return resJson;
+            return recordset;
         }
     }
 }
