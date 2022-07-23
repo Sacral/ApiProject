@@ -21,6 +21,7 @@ namespace ApiProject.Connect
         }
         public IDbConnection CreateConnection(string name = "default")
         {
+
             switch (name)
             {
                 case "default":
@@ -34,6 +35,7 @@ namespace ApiProject.Connect
                         throw new Exception("name 不存在。");
                     }
             }
+
         }
     }
 }
