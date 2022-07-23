@@ -98,7 +98,7 @@ namespace ApiProject.DatabaseAccess
         {
             var cn = conLink.CreateConnection();
 
-            var sql = "DELETE FROM [AdventureWorks2019].[HumanResources].[Department] WHERE departmentID = @departmentID   ";
+            var sql = "DELETE FROM [AdventureWorks2019].[HumanResources].[Department] WHERE DepartmentID = @departmentID   ";
 
             int recordset  = cn.Execute(sql, newdata);
 

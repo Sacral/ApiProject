@@ -51,7 +51,7 @@ namespace ApiProject.UtiFunction
                     if (test == false)
                     {
                         //d=判斷是否為英文
-                        if (Char.IsLetter(ch[i]))
+                        if (!Char.IsLetter(ch[i]))
                         {
                             return false;
                         }
@@ -59,7 +59,7 @@ namespace ApiProject.UtiFunction
                     }
                 }
             }
-            return false;
+            return true;
         }
 
         public static bool isChinese(char c)
