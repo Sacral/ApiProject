@@ -23,7 +23,7 @@ namespace ApiProject.Controllers
 
         // GET 
         [HttpGet]
-        public async Task<ResFormat> Get([FromQuery] DepData value)
+        public async Task<ResFormat> Get([FromQuery]DepData value)
         {
             //DepData res = new DepData
             //{

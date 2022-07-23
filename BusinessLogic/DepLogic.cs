@@ -25,20 +25,32 @@ namespace ApiProject.BusinessLogic
             string gname = value.groupName;
             ResFormat resJson;
 
-            if (UtiFunctions.checkString(name)||string.IsNullOrEmpty(name))
+            if(!string.IsNullOrEmpty(name))
+            {
+
+                if (!UtiFunctions.checkString(name))
+                {
+                    return resJson = UtiFunctions.ResponseString(-1, "包含了非中英文的字元");
+                }
+                else
+                {
+                    DepData newdata = new DepData
+                    {
+                        name = name,
+                        groupName = gname
+                    };
+                    return resJson = await depManager.DepartmentSelect(newdata);
+                }
+
+            }
+            else
             {
                 DepData newdata = new DepData
                 {
                     name = name,
                     groupName = gname
                 };
-               return resJson = await depManager.DepartmentSelect(newdata);
-            }
-            else
-            {
-
-               return resJson = UtiFunctions.ResponseString(-1, "包含了非中英文的字元");
-                
+                return resJson = await depManager.DepartmentSelect(newdata);
             }
 
         }
