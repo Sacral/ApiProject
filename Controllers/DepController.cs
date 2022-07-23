@@ -32,7 +32,7 @@ namespace ApiProject.Controllers
 
             if (!string.IsNullOrEmpty(value.name) && !UtiFunctions.checkString(value.name))
             {
-                msg = ResFormat<DepData>.errmsg1;
+                msg = ErrorMsg.errmsg1;
                 reCode = 0;
             }
 
@@ -50,7 +50,7 @@ namespace ApiProject.Controllers
 
             if (resInsert == -1)
             {
-                msg = ResFormat<DepData>.errmsg1;
+                msg = ErrorMsg.errmsg1;
             }
 
             return UtiFunctions.ResponseString<DepData>(resInsert , msg);
@@ -66,11 +66,11 @@ namespace ApiProject.Controllers
 
             if (resUpdate==-2)
             {
-                msg = ResFormat<DepData>.errmsg2;
+                msg = ErrorMsg.errmsg2;
 
             }else if (resUpdate == -1)
             {
-                msg = ResFormat<DepData>.errmsg1;
+                msg = ErrorMsg.errmsg1;
             }
 
             return UtiFunctions.ResponseString<DepData>(resUpdate, msg); 
@@ -85,7 +85,7 @@ namespace ApiProject.Controllers
 
             if (resDelete == -2)
             {
-                msg = ResFormat<DepData>.errmsg2;
+                msg = ErrorMsg.errmsg2;
 
             }
 
